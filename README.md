@@ -12,7 +12,7 @@
 
 *Client Side Display -> Ui*
 
-**React Project (FrontEnd Development)**
+**React Project Features (FrontEnd Development)**
  
  - Products Listing  
  - Product Details
