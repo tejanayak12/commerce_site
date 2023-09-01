@@ -1,26 +1,17 @@
-import { useEffect, useState } from 'react';
 import './App.css';
 import AppRouter from './AppRouter';
-import { API_End_Points } from './Constants';
+import AppProvider from './ProductContext/AppProvider';
+import PageHeader from './components/PageHeader';
 
 
 function App() {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    fetch(API_End_Points.PRODUCTS)
-      .then(res => res.json())
-      .then(res => {
-        console.log('API End Point :', res)
-        setProducts(res.products);
-      })
-  }, [])
-
   return (
-    <div className="App">
-      <h1>Welcome to VibeTrends</h1>
-      <AppRouter products={products} />
-    </div>
+    <AppProvider>
+      <div className="App">
+        <PageHeader />
+        <AppRouter />
+      </div>
+    </AppProvider>
   );
 }
 

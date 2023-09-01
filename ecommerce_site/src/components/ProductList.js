@@ -1,7 +1,9 @@
 import React from 'react'
 import ProductCard from './ProductCard';
+import { useAppContext } from '../ProductContext/AppProvider';
 
-export default function ProductList({ products }) {
+export default function ProductList() {
+    const { products } = useAppContext();
     console.log('Productslist', products);
     return (
         <>
