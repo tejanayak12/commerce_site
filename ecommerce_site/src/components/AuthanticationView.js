@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { firebaseApp } from '../firebaseApp';
-import {getAuth , createUserWithEmailAndPassword} from 'firebase/auth';
+import {getAuth , createUserWithEmailAndPassword , signInWithEmailAndPassword} from 'firebase/auth';
 
 
 function AuthanticationView({ isLogin }) {
@@ -17,13 +17,16 @@ function AuthanticationView({ isLogin }) {
     console.log("::HandelAuthantication::", title,isLogin,formData);
     event.preventDefault();
 
+    const auth = getAuth(firebaseApp);
     if(isLogin){
       // Login
+      signInWithEmailAndPassword(auth,email,password)
+      .then(res => console.log("::: LOGIN RESPONSE" , res))
     } else {
       // Sign Up
-      const auth = getAuth(firebaseApp);
+      
       createUserWithEmailAndPassword(auth , email , password)
-      .then(fireRes => console.log(fireRes))
+      .then(res => console.log("::: SignUP RESPONSE" , res))
       .catch(error => console.log(error))
     }
 
