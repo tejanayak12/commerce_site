@@ -5,7 +5,7 @@ function PageHeader() {
     return (
         <header className='bg-slate-700 flex justify-between p-6'>
             <PageLink to='/'>
-                Welcome to Vibes Trends
+                Welcome to Trend Vibes
             </PageLink>
 
             <nav className='flex gap-10'>
