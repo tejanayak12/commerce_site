@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
-import { firebaseApp } from '../firebaseApp';
-import {getAuth , createUserWithEmailAndPassword , signInWithEmailAndPassword} from 'firebase/auth';
-
+import React, { useEffect, useState } from 'react'
+import { useUser } from '../ProductContext/UserProvider';
 
 function AuthanticationView({ isLogin }) {
 
@@ -9,37 +7,36 @@ function AuthanticationView({ isLogin }) {
   const [password, setPassword] = useState('');
   const title = isLogin ? 'Login' : 'Signup';
 
-  const HandelAuthantication = (event) => { 
-    const formData = {
-      email, // email : email Key And Reference Value
-      password // password : password
-    }
-    console.log("::HandelAuthantication::", title,isLogin,formData);
+  const { doLogin, doSignUp, error, ClearErros } = useUser();
+
+  const HandelAuthantication = (event) => {
     event.preventDefault();
-
-    const auth = getAuth(firebaseApp);
+    console.log(":: HandelAuthantication  ::", { doLogin, doSignUp, error });
+    (isLogin ? doLogin : doSignUp)(email, password);
+    /*
     if(isLogin){
-      // Login
-      signInWithEmailAndPassword(auth,email,password)
-      .then(res => console.log("::: LOGIN RESPONSE" , res))
-    } else {
-      // Sign Up
-      
-      createUserWithEmailAndPassword(auth , email , password)
-      .then(res => console.log("::: SignUP RESPONSE" , res))
-      .catch(error => console.log(error))
+      doLogin(email,password);
+    }else {
+      doSignUp(email,password)
     }
-
-  
+    */
   };
+
+  useEffect(() => { }, []) // ComponentdidMount (Invoke only once after Mounted)
+
+  useEffect(() => {
+    ClearErros();
+  }, [isLogin]); // Work as ComponentDidUpdate (invoke WhenEver isLogin Prop Change);
 
 
 
   return (
     <form onSubmit={HandelAuthantication}>
+
       <h2> {title} </h2>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          {error && <div className='text-red-500 p-2 m-2'>{error}</div>}
           <img
             className="mx-auto h-40 w-auto"
             src="https://scontent-tir3-1.xx.fbcdn.net/v/t39.30808-6/311019739_477617561090185_8854647639814127260_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=a2f6c7&_nc_ohc=GGxJ_IJBVTkAX8bYhSM&_nc_ht=scontent-tir3-1.xx&oh=00_AfCUtANPKT67GmRfLuy28Q27EQM7Ea9q98UbwhnV-lwAWg&oe=64F8F7AE"
@@ -48,6 +45,7 @@ function AuthanticationView({ isLogin }) {
           <h2 className="mt-0 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             {title}
           </h2>
+
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
