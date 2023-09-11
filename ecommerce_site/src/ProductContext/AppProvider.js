@@ -1,15 +1,17 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { API_End_Points } from '../Constants';
 
-const AppContext = createContext({
+export const AppContext = createContext({
     products: [],
-    loadind: true
+    loading: true
 });
 
 function AppProvider({ children }) {
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [cartItems, setCartItems] = useState([]);
+    const [cartProducts, setCartProducts] = useState({});
 
     useEffect(() => {
         fetch(API_End_Points.PRODUCTS)
@@ -20,11 +22,37 @@ function AppProvider({ children }) {
             })
     }, []);
 
+    const addProductToCart = (product) => {
+
+        let addedProduct = cartItems.find(cartproduct => cartproduct.id == product.id);
+        if (!addedProduct) {
+            addedProduct = product
+            product.quantity = 1
+        } else {
+            product.quantity++;
+        };
+
+        const filterProducts = cartItems.filter(cartproduct => cartproduct.id != product.id);
+        setCartItems([...filterProducts, addedProduct]);
+
+        let cartProduct = cartProducts[product.id];
+        if (!cartProduct) {
+            cartProduct = product;
+            cartProduct.quantity = 1;
+        } else {
+            cartProduct.quantity++;
+        }
+        setCartProducts({ ...cartProducts, [product.id]: cartProduct });
+    }
+
     return (
         <AppContext.Provider value={{
             products,
             loading,
-            setLoading
+            setLoading,
+            cartItems,
+            addProductToCart,
+            cartProducts
         }}>
             {children}
         </AppContext.Provider>

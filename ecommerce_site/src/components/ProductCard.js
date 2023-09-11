@@ -7,7 +7,6 @@ export default function ProductCard({ product }) {
             <img src={product.images[0]} alt={product.title} />
             <h3 className='text-white'>{product.title}</h3>
             <p> Price : ${product.price}</p>
-            <p> Description : {product.description}</p>
         </Link>
     )
 }
