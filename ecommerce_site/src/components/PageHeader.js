@@ -5,7 +5,7 @@ import { useUser } from '../ProductContext/UserProvider';
 function PageHeader() {
     const { user } = useUser();
     return (
-        <header className='bg-slate-700 flex justify-between p-6'>
+        <header className='bg-slate-700 flex justify-between p-5'>
             <PageLink to='/'>
                 Welcome to Trend Vibes
             </PageLink>

@@ -7,8 +7,7 @@ export default function ProductList() {
     console.log('Productslist', products);
     return (
         <>
-            <h3>Products</h3>
-            <div className='product-list'>
+            <div className='product-list bg-slate-800'>
                 {products.map(product => <ProductCard key={product.id} product={product} />)}
             </div>
         </>
