@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import { firebaseApp } from "../firebaseApp";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { useHistory } from 'react-router-dom';
 
 
 const FIREBASE_AUTH_ERRORS = {
@@ -15,13 +16,21 @@ const FIREBASE_AUTH_ERRORS = {
 const UserContext = createContext({
     user: null,
     error: null
-})
+});
+
+const APP_USER = "APP_USER";
 
 function UserProvider({ children }) {
-
-    const [user, setUser] = useState(null);
+    const localUser = localStorage.getItem(APP_USER);
+    const [user, setUser] = useState(localUser ? JSON.parse(localUser) : null);
     const [error, setError] = useState(null);
     const auth = getAuth(firebaseApp);
+    const history = useHistory();
+
+    const SaveUser = user => {
+        localStorage.setItem(APP_USER, JSON.stringify(user));
+        setUser(user);
+    }
 
     // doLogin(emai = "teja@gmail.com", password = "123456")
     const doLogin = (email, password) => {
@@ -32,7 +41,8 @@ function UserProvider({ children }) {
             password
         ).then(res => {
             console.log(":: DO LOGIN SUCCESS ::", res);
-            setUser(res.user);
+            SaveUser(res.user);
+            history.push("/products");
         }).catch(error => {
             var message = FIREBASE_AUTH_ERRORS[error.code];
             console.log(":: DO LOGIN FAILURE ::", error.code, message);
@@ -48,7 +58,8 @@ function UserProvider({ children }) {
             password
         ).then(res => {
             console.log(":: DO SignUp SUCCESS ::", res);
-            setUser(res.user);
+            SaveUser(res.user);
+            history.push("/login");
         }).catch(error => {
             var message = FIREBASE_AUTH_ERRORS[error.code];
             setError(message);

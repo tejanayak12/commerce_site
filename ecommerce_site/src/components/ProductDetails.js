@@ -28,7 +28,7 @@ export default function ProductDetails({ match, ...props }) {
                         />
                     ))}
                 </div>
-                <h3 className='text-2xl font-bold my-4'>{product.title} | {cartProductInfo ? cartProductInfo.quantity : 0}</h3>
+                <h3 className='text-2xl font-bold my-4'>{product.title} | Selected : {cartProductInfo ? cartProductInfo.quantity : 0}</h3>
                 <p className='text-lg'>Brand : {product.brand}</p>
                 <p className='text-lg'>Price : $ {product.price}</p>
                 <p className='text-lg'>Description : {product.description}</p>

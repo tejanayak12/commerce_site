@@ -5,9 +5,9 @@ import Cartitem from './Cartitem';
 export class CartDetails extends Component {
     render() {
         return (
-            <div className='container bg-slate-800 bg-repeat'>
+            <div className='container bg-slate-800 bg-repeat relative flex min-h-screen justify-centre '>
                 <section className='container mx-auto py-4  flex-1 w-100%'>
-                    <h2 className='text-2xl font-semi-bold mb-4 text-white p-5rem'>Cart Details</h2>
+                    <h2 className='text-2xl font-semi-bold mb-4 text-white p-5rem '>Cart Details</h2>
                     <AppContext.Consumer>
                         {({ cartProducts }) => {
                             const products = Object.values(cartProducts);

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useUser } from '../ProductContext/UserProvider';
+import { useHistory } from 'react-router-dom';
 
 function AuthanticationView({ isLogin }) {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const title = isLogin ? 'Login' : 'Signup';
+  const history = useHistory();
 
-  const { doLogin, doSignUp, error, ClearErros } = useUser();
+  const { doLogin, doSignUp, error, ClearErros , user } = useUser();
 
   const HandelAuthantication = (event) => {
     event.preventDefault();
@@ -28,7 +29,11 @@ function AuthanticationView({ isLogin }) {
     ClearErros();
   }, [isLogin]); // Work as ComponentDidUpdate (invoke WhenEver isLogin Prop Change);
 
-
+  useEffect(() => {
+    if(user){
+      history.push("/")
+    }
+  },[user])
 
   return (
     <form onSubmit={HandelAuthantication} className='bg-gray-900 max-w-full py-18 mx-auto'>
