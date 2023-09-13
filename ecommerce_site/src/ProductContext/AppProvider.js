@@ -10,7 +10,6 @@ function AppProvider({ children }) {
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [cartItems, setCartItems] = useState([]);
     const [cartProducts, setCartProducts] = useState({});
 
     useEffect(() => {
@@ -24,7 +23,7 @@ function AppProvider({ children }) {
 
     const addProductToCart = (product) => {
 
-        let addedProduct = cartItems.find(cartproduct => cartproduct.id == product.id);
+       /* let addedProduct = cartItems.find(cartproduct => cartproduct.id == product.id);
         if (!addedProduct) {
             addedProduct = product
             product.quantity = 1
@@ -33,7 +32,7 @@ function AppProvider({ children }) {
         };
 
         const filterProducts = cartItems.filter(cartproduct => cartproduct.id != product.id);
-        setCartItems([...filterProducts, addedProduct]);
+        setCartItems([...filterProducts, addedProduct]); */
 
         let cartProduct = cartProducts[product.id];
         if (!cartProduct) {
@@ -45,12 +44,20 @@ function AppProvider({ children }) {
         setCartProducts({ ...cartProducts, [product.id]: cartProduct });
     }
 
+    const productsById = {};
+    products.forEach((product) => {
+        productsById[product.id] = product;
+    });
+
+    const cartCount = Object.keys(cartProducts).length;
+
     return (
         <AppContext.Provider value={{
             products,
+            productsById,
             loading,
             setLoading,
-            cartItems,
+            cartCount,
             addProductToCart,
             cartProducts
         }}>

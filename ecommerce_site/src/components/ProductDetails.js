@@ -5,8 +5,9 @@ import RatingStars from './RatingStars';
 export default function ProductDetails({ match, ...props }) {
     const { params } = match;
     const { id } = params;
-    const { products, addProductToCart } = useAppContext();
-    const product = products.find(prod => prod.id == id);
+    const { productsById, addProductToCart, cartProducts } = useAppContext();
+    const product = productsById[id];
+    const cartProductInfo = cartProducts[id]
 
     if (!product) return <h1>Sorry No Product Found....</h1>;
 
@@ -27,7 +28,7 @@ export default function ProductDetails({ match, ...props }) {
                         />
                     ))}
                 </div>
-                <h3 className='text-2xl font-bold my-4'>{product.title}</h3>
+                <h3 className='text-2xl font-bold my-4'>{product.title} | {cartProductInfo ? cartProductInfo.quantity : 0}</h3>
                 <p className='text-lg'>Brand : {product.brand}</p>
                 <p className='text-lg'>Price : $ {product.price}</p>
                 <p className='text-lg'>Description : {product.description}</p>

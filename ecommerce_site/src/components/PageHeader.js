@@ -5,7 +5,7 @@ import { useAppContext } from '../ProductContext/AppProvider';
 
 function PageHeader() {
     const { user } = useUser();
-    const { cartItems } = useAppContext();
+    const { cartCount } = useAppContext();
     return (
         <header className='bg-slate-700 flex justify-between p-5'>
             <PageLink to='/'>
@@ -18,7 +18,7 @@ function PageHeader() {
                     <PageLink to='login'>Login</PageLink>
                     <PageLink to='signup'>SignUp</PageLink>
                 </>}
-                <PageLink to='/cart'>Cart-Items : {cartItems.length}</PageLink>
+                <PageLink to='/cart'>Cart-Items : {cartCount}</PageLink>
             </nav>
         </header>
     )

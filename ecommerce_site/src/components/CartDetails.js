@@ -1,55 +1,32 @@
 import React, { Component } from 'react';
 import { AppContext } from '../ProductContext/AppProvider'
+import Cartitem from './Cartitem';
 
 export class CartDetails extends Component {
     render() {
         return (
-            <section className='container mx-auto py-4'>
-                <h2>Cart Items</h2>
-                <AppContext.Consumer>
-                    {({ cartItems, cartProducts }) => <table>
-                        <thead>
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Quantity</th>
-                                <th>Per Price</th>
-                                <th>Total Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {cartItems.map(item => <tr key={item.id}>
-                                <td>{item.title}</td>
-                                <td>{item.quantity}</td>
-                                <td>{item.price}</td>
-                                <td>{item.quantity * item.price}</td>
-                            </tr>)}
-                        </tbody>
-                    </table>}
-                </AppContext.Consumer>
-                <hr />
-                <h2>Cart Items</h2>
-                <AppContext.Consumer>
-                    {({ cartProducts }) => <table>
-                        <thead>
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Quantity</th>
-                                <th>Per Price</th>
-                                <th>Total Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {Object.values(cartProducts).map(item => <tr key={item.id}>
-                                <td>{item.title}</td>
-                                <td>{item.quantity}</td>
-                                <td>{item.price}</td>
-                                <td>{item.quantity * item.price}</td>
-                            </tr>)}
-                        </tbody>
-                    </table>}
-                </AppContext.Consumer>
+            <div className='container bg-slate-800 bg-repeat'>
+                <section className='container mx-auto py-4  flex-1 w-100%'>
+                    <h2 className='text-2xl font-semi-bold mb-4 text-white p-5rem'>Cart Details</h2>
+                    <AppContext.Consumer>
+                        {({ cartProducts }) => {
+                            const products = Object.values(cartProducts);
+                            let total = 0;
+                            products.forEach(({ quantity, price }) => {
+                                total = total + (quantity * price)
+                            });
+                            return products.length > 0 ? <div>
+                                {products.map((product) => <Cartitem product={product}/>)}
+                                <h4 className='text-white'>Total Price Is : $ {total}</h4>
+                                <button className="flex max-w-xs justify-center rounded-md bg-slate-700 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-3">
+                                    Proceed To Check Out
+                                </button>
+                            </div> : <p className='text-white'>Your Cart Is Empty...</p>
+                        }}
+                    </AppContext.Consumer>
 
-            </section>
+                </section>
+            </div>
         )
     }
 }
