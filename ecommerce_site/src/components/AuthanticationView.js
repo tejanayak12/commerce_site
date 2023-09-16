@@ -42,7 +42,7 @@ function AuthanticationView({ isLogin }) {
           
           <img
             className="mx-auto h-40 w-auto rounded-md"
-            src="https://scontent-tir3-1.xx.fbcdn.net/v/t39.30808-6/311019739_477617561090185_8854647639814127260_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=a2f6c7&_nc_ohc=GGxJ_IJBVTkAX8bYhSM&_nc_ht=scontent-tir3-1.xx&oh=00_AfCUtANPKT67GmRfLuy28Q27EQM7Ea9q98UbwhnV-lwAWg&oe=64F8F7AE"
+            src="https://sales.webtel.in/images/Login-page-character1.png"
             alt="Your Company"
           />
           <h2 className="mt-4 text-white text-2xl font-bold leading-9 tracking-tight text-gray-900 text-center p-3">

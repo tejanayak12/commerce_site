@@ -5,6 +5,7 @@ function LogOut() {
     const {LogOut} = useUser();
 
     useEffect(() => {
+      localStorage.clear();
         LogOut();
     } , [])
 

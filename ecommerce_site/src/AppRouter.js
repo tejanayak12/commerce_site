@@ -6,6 +6,7 @@ import ProductList from './components/ProductList';
 import AuthanticationView from './components/AuthanticationView';
 import LogOut from './components/LogOut';
 import CartDetails from './components/CartDetails';
+import CheckOut from './components/CheckOut';
 
 export default function AppRouter({ children, }) {
     return <Switch>
@@ -16,5 +17,6 @@ export default function AppRouter({ children, }) {
         <Route path='/products/:id' component={ProductDetails} />
         <Route path='/logout' component={LogOut} />
         <Route path='/cart' component={CartDetails} />
+        <Route path='/checkout' component={CheckOut} />
     </Switch>
 }

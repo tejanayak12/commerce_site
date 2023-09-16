@@ -6,11 +6,15 @@ export const AppContext = createContext({
     loading: true
 });
 
-function AppProvider({ children }) {
+const CART_PRODUCTS = "CART_PRODUCTS";
+const localCartItems = localStorage.getItem(CART_PRODUCTS);
+const parseLocalCartItems = JSON.parse(localCartItems ? localCartItems : "{}");
 
+
+function AppProvider({ children }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [cartProducts, setCartProducts] = useState({});
+    const [cartProducts, setCartProducts] = useState(parseLocalCartItems);
 
     useEffect(() => {
         fetch(API_End_Points.PRODUCTS)
@@ -43,6 +47,10 @@ function AppProvider({ children }) {
         }
         setCartProducts({ ...cartProducts, [product.id]: cartProduct });
     }
+
+    useEffect(() => {
+        localStorage.setItem(CART_PRODUCTS, JSON.stringify(cartProducts));
+    },[cartProducts]);
 
     const productsById = {};
     products.forEach((product) => {
