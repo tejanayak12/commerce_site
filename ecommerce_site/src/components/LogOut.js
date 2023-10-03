@@ -1,17 +1,15 @@
-import React, { useEffect } from 'react'
-import { useUser } from '../ProductContext/UserProvider'
+import React, { useEffect } from "react";
+import { useUser } from "../ProductContext/UserProvider";
 
 function LogOut() {
-    const {LogOut} = useUser();
+  const { LogOut } = useUser();
 
-    useEffect(() => {
-      localStorage.clear();
-        LogOut();
-    } , [])
+  useEffect(() => {
+    localStorage.clear();
+    LogOut();
+  }, []);
 
-  return (
-    null
-  )
+  return null;
 }
 
-export default LogOut
+export default LogOut;
